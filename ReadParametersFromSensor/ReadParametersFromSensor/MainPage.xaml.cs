@@ -40,23 +40,29 @@ namespace ReadParametersFromSensor
             bME280 = new BuildAzure.IoT.Adafruit.BME280.BME280Sensor();
             await bME280.Initialize();
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(10);
+            timer.Interval = TimeSpan.FromSeconds(5);
             timer.Tick += TimerTick;
 
             timer.Start();
         }
-        private void TimerTick(object sender, object e)
+        private async void TimerTick(object sender, object e)
         {
-            var temperature = bME280.ReadTemperature();
-            var humidity = bME280.ReadHumidity();
-            var pressure = bME280.ReadPressure();
-            var altitude = bME280.ReadAltitude(seaLevelPressure);
+            try
+            {
+                var temperature = await bME280.ReadTemperature();
+                var humidity = await bME280.ReadHumidity();
+                var pressure = await bME280.ReadPressure() / 100;
+                var altitude = await bME280.ReadAltitude(seaLevelPressure);
 
-            Debug.WriteLine("Temperature: {0} deg C", temperature);
-            Debug.WriteLine("Humidity: {0} %", humidity);
-            Debug.WriteLine("Pressure: {0} Pa", pressure);
-            Debug.WriteLine("Altitude: {0} m", altitude);
-
+                Debug.WriteLine("Temperature: {0} deg C", temperature);
+                Debug.WriteLine("Humidity: {0} %", humidity);
+                Debug.WriteLine("Pressure: {0} hPa", pressure);
+                Debug.WriteLine("Altitude: {0} m", altitude);
+            }
+            catch
+            {
+                Debug.WriteLine("Cannot read value from sensor...");
+            }
         }
     }
 }
