@@ -7,6 +7,7 @@ using Microsoft.Azure.Devices.Client;
 using System.Threading.Tasks;
 using System.Text;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -19,28 +20,29 @@ namespace ReadParametersFromSensor
     {
         private DispatcherTimer timer;
         private BuildAzure.IoT.Adafruit.BME280.BME280Sensor bME280;
-        private static DeviceClient serviceDeviceClient;
+        private static DeviceClient DeviceClient = null;
         
         const float seaLevelPressure = 1022.00f;
         private static string connectionString = "HostName=IoTHubMember.azure-devices.net;DeviceId=MyRpi;SharedAccessKey=F4CptKs4Pn9bc1oi43GXsqFtgsKAFnEd2q5XA53rKRk=";
         private static string deviceID = "MyRpi";
         private int messageId = 1;
-       
+        private static string iotHubUri = "IoTHubMember.azure-devices.net";
+        private static string deviceId = "MyRpi";
+        private static string deviceKey = "F4CptKs4Pn9bc1oi43GXsqFtgsKAFnEd2q5XA53rKRk=";
         public MainPage()
         {
             this.InitializeComponent();
-
-            serviceDeviceClient = DeviceClient.CreateFromConnectionString(connectionString, TransportType.Amqp);
-            //s_deviceClient.SetMethodHandlerAsync("SetTelemetryInterval", SetTelemetryInterval, null).Wait();
+            DeviceClient = DeviceClient.CreateFromConnectionString(connectionString, TransportType.Amqp);
         }
 
-        private async Task SendDeviceToCloudMessageAsync(double temp, float humidity, float pressure, float altitude)
+        private async void SendDeviceToCloudMessageAsync(double temp, float humidity, float pressure, float altitude)
         {
-            var text = "HELLO";
-
+            if(DeviceClient == null)
+            {
+                DeviceClient = DeviceClient.Create(iotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey(deviceId, deviceKey), TransportType.Amqp);
+            }
             while (true)
             {
-                var textcurrent = text + "+";
                 var telemetryDataPoint = new {
                 messageId = messageId++,
                 deviceId = deviceID,
@@ -48,21 +50,24 @@ namespace ReadParametersFromSensor
                 humidity = humidity,
                 pressure = pressure
                 };
-
+              
                 var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
                 var message = new Message(Encoding.ASCII.GetBytes(messageString));
+                
+                //Debug.WriteLine("{0} > Sending message: {1}", DateTime.Now.ToLocalTime(), messageString);
 
-                //Debug.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
                 try
                 {
-                    await serviceDeviceClient.SendEventAsync(message);
-                    Debug.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
+                    await DeviceClient.SendEventAsync(message);
+                    Debug.WriteLine("Ended sending ");  
                 }
-                catch(Exception ex)
+                catch(HttpRequestException e)
                 {
-                    Debug.WriteLine("Error Message: {0}",ex.Message);
+                    Debug.WriteLine("Error Message: {0}",e.InnerException.Message);
                 }
                 Debug.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
+
+                Task.Delay(5000).Wait();
             }
         }
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -103,7 +108,7 @@ namespace ReadParametersFromSensor
             Debug.WriteLine("Humidity: {0} %", humidity);
             Debug.WriteLine("Pressure: {0} hPa", pressure);
             Debug.WriteLine("Altitude: {0} m", altitude);
-            await SendDeviceToCloudMessageAsync(temperature, humidity, pressure, altitude);
+            SendDeviceToCloudMessageAsync(temperature, humidity, pressure, altitude);
         }
     }
 }
