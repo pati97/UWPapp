@@ -23,7 +23,8 @@ namespace ReadParametersFromSensor
         private static DeviceClient DeviceClient = null;
         
         const float seaLevelPressure = 1022.00f;
-        private static string connectionString = "HostName=IoTHubMember.azure-devices.net;DeviceId=MyRpi;SharedAccessKey=F4CptKs4Pn9bc1oi43GXsqFtgsKAFnEd2q5XA53rKRk=";
+        private static string connectionStringStandart = "HostName=IotHubWeather.azure-devices.net;DeviceId=MyRpi;SharedAccessKey=Xeh7mlp/FG+es6OYnkQgco3cWPnfdHnn5LHzF/U3wBk=";
+        private static string connectionStringFree = "HostName=IoTHubMember.azure-devices.net;DeviceId=MyRpi;SharedAccessKey=F4CptKs4Pn9bc1oi43GXsqFtgsKAFnEd2q5XA53rKRk=";
         private static string deviceID = "MyRpi";
         private int messageId = 1;
         private static string iotHubUri = "IoTHubMember.azure-devices.net";
@@ -32,15 +33,15 @@ namespace ReadParametersFromSensor
         public MainPage()
         {
             this.InitializeComponent();
-            DeviceClient = DeviceClient.CreateFromConnectionString(connectionString, TransportType.Amqp);
+            DeviceClient = DeviceClient.CreateFromConnectionString(connectionStringStandart, TransportType.Amqp);
         }
 
         private async void SendDeviceToCloudMessageAsync(double temp, float humidity, float pressure, float altitude)
         {
-            if(DeviceClient == null)
-            {
-                DeviceClient = DeviceClient.Create(iotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey(deviceId, deviceKey), TransportType.Amqp);
-            }
+            //if(DeviceClient == null)
+            //{
+            //    DeviceClient = DeviceClient.Create(iotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey(deviceId, deviceKey), TransportType.Amqp);
+            //}
             while (true)
             {
                 var telemetryDataPoint = new {
@@ -67,7 +68,7 @@ namespace ReadParametersFromSensor
                 }
                 Debug.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
 
-                Task.Delay(5000).Wait();
+                Task.Delay(15000).Wait();
             }
         }
         protected override async void OnNavigatedTo(NavigationEventArgs e)
