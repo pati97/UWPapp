@@ -27,6 +27,7 @@ namespace ReadParametersFromSensor
         private static string connectionStringFree = "HostName=IoTHubMember.azure-devices.net;DeviceId=MyRpi;SharedAccessKey=F4CptKs4Pn9bc1oi43GXsqFtgsKAFnEd2q5XA53rKRk=";
         private static string deviceID = "MyRpi";
         private int messageId = 1;
+        private DateTime date;
         private static string iotHubUri = "IoTHubMember.azure-devices.net";
         private static string deviceId = "MyRpi";
         private static string deviceKey = "F4CptKs4Pn9bc1oi43GXsqFtgsKAFnEd2q5XA53rKRk=";
@@ -47,6 +48,7 @@ namespace ReadParametersFromSensor
                 var telemetryDataPoint = new {
                 messageId = messageId++,
                 deviceId = deviceID,
+                dateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
                 temperature = temp,
                 humidity = humidity,
                 pressure = pressure
