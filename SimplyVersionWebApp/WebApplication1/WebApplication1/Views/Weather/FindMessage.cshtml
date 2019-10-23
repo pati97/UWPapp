@@ -1,0 +1,62 @@
+﻿@model WebApplication1.Models.Weather
+
+@{
+    ViewBag.Title = "FindMessage";
+}
+
+<h2>FindMessage</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DeviceId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MessageId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Temperature)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Humidity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pressure)
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td> @Html.DisplayFor(model => model.DeviceId)</td>
+        <td> @Html.DisplayFor(model => model.MessageId)</td>
+        <td> @Html.DisplayFor(model => model.DateTime)</td>
+        <td> @Html.DisplayFor(model => model.Temperature)</td>
+        <td> @Html.DisplayFor(model => model.Humidity)</td>
+        <td> @Html.DisplayFor(model => model.Pressure)</td>
+    </tr>
+    @*@foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => model.DeviceId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MessageId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Temperature)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Humidity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pressure)
+                </td>
+            </tr>
+        }*@
+
+</table>

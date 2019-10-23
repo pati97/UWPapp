@@ -15,7 +15,7 @@ namespace WebApplication1.Controllers
     {
         MongoDbContext _dbContext = new MongoDbContext();
 
-  
+
 
         // GET: Weather
         public async Task<ActionResult> Index(int? page)
@@ -40,6 +40,25 @@ namespace WebApplication1.Controllers
         {
             return RedirectToAction("Index", "Weather");
         }
-       
+
+        public ActionResult List()
+        {
+            var allData = _dbContext.SelectAll();
+            return View(allData);
+        }
+
+        public ActionResult FindMessage(int id)
+        {
+            var weather = _dbContext.FindMessage(id);
+
+            if (weather == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(weather);
+
+        }
     }
+
 }

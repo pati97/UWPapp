@@ -39,5 +39,16 @@ namespace WebApplication1
                 return Database.GetCollection<Weather>(_collectionName);
             }
         }
+
+        public Weather FindMessage(int id)
+        {
+            return GetWeathers.Find(new BsonDocument { { "MessageId", id } }).FirstAsync().Result;
+        }
+        public List<Weather> SelectAll()
+        {
+            var query = GetWeathers.Find(new BsonDocument()).ToListAsync();
+            return query.Result;
+        }
     }
+
 }
