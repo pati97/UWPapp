@@ -25,7 +25,7 @@ namespace WebApplication1.Controllers
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             IPagedList<Weather> PagedListWeather = null;
             IEnumerable<Weather> weathers = null;
-            using (IAsyncCursor<Weather> cursor = await _dbContext.GetWeathers.FindAsync(new BsonDocument()))
+            using (IAsyncCursor<Weather> cursor = await _dbContext.GetCollection.FindAsync(new BsonDocument()))
             {
                 while (await cursor.MoveNextAsync())
                 {

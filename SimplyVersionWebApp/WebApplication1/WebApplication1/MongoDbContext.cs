@@ -21,6 +21,7 @@ namespace WebApplication1
         private readonly string connectionString = @"mongodb://telemetrycosmosdb:I4EZoXM4sEo3OaNN72Sh72UPxszKfCacgAfLx4hQWs6T4H5vtfzOJe8WwTGCcaz0dXmG3EOVu8huW0fK9NcFIA==@telemetrycosmosdb.documents.azure.com:10255/?ssl=true&replicaSet=globaldb";
 
         public IMongoDatabase Database { get; set; }
+        public IMongoCollection<Weather> collection { get; set; }
 
         public MongoDbContext()
         {
@@ -29,10 +30,10 @@ namespace WebApplication1
 
             var mongoClient = new MongoClient(settings);
             Database = mongoClient.GetDatabase(_databaseName);
-            var collection = Database.GetCollection<BsonDocument>("weather");
+            collection = Database.GetCollection<Weather>("weather");
         }
 
-        public IMongoCollection<Weather> GetWeathers
+        public IMongoCollection<Weather> GetCollection
         {
             get
             {
@@ -42,12 +43,23 @@ namespace WebApplication1
 
         public Weather FindMessage(int id)
         {
-            return GetWeathers.Find(new BsonDocument { { "MessageId", id } }).FirstAsync().Result;
+            return GetCollection.Find(new BsonDocument { { "MessageId", id } }).FirstAsync().Result;
         }
         public List<Weather> SelectAll()
         {
-            var query = GetWeathers.Find(new BsonDocument()).ToListAsync();
+            var query = GetCollection.Find(new BsonDocument()).ToListAsync();
             return query.Result;
+        }
+
+        public List<DataPoint> GetTemp()
+        {
+            IMongoCollection<DataPoint> collectionTemperature = Database.GetCollection<DataPoint>("weather");
+
+            var filter = Builders<DataPoint>.Filter.Empty;
+            var projection = Builders<DataPoint>.Projection.Include("Temperature").Include("DateTime").Exclude("_id");
+            //var projection = Builders<Weather>.Projection.Expression(x => new { x.Temperature, x.DateTime });
+            var query = collectionTemperature.Find(filter).Project<DataPoint>(projection).ToListAsync().Result;
+            return query;
         }
     }
 
