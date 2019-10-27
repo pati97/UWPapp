@@ -1,25 +1,26 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 
 namespace WebApplication1.Models
 {
-    //[DataContract]
+    [DataContract]
     public class DataPoint
     {
-        public DataPoint(string DateTime, double Temperature)
+        public DataPoint(DateTime DateTime, double YValue)
         {
             this.DateTime = DateTime;
-            this.Temperature = Temperature;
+            this.YValue = YValue;
         }
 
-        [JsonProperty(PropertyName = "DateTime")]
-        public string DateTime = null;
+        [DataMember(Name = "label")]    
+        public DateTime? DateTime = null;
 
-        [JsonProperty(PropertyName = "Temperature")]
-        public double? Temperature = null;
+        [DataMember(Name = "y")]
+        public double? YValue = null;
     }
 }

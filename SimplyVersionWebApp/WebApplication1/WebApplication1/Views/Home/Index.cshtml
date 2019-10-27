@@ -1,33 +1,149 @@
-﻿@model IEnumerable<WebApplication1.Models.DataPoint>
+﻿@model IEnumerable<WebApplication1.Models.Weather>
 
 @{
-    ViewBag.Title = "Index";
+    Layout = null;
 }
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
-<h2>Index</h2>
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script>
+        window.onload = $(function () {
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Temperature)
-        </th>
-    </tr>
+            var chart = new CanvasJS.Chart("chartContainer1", {
+                animationEnabled: true,
+                theme: "light2",
+                zoomEnabled: true,
+                zoomType: "xy",
+                title: {
+                    text: "Temperature",
+                    fontSize: 30,
+                },
+                axisX: {
+                    valueFormatString: "DD-MM-YYYY HH-mm-ss",
+                    title: "Date",
+                    titleFontSize: 20,
+                    //gridThickness: 2,
+                    margin: 10,
+                    labelAngle: 0,
+                    labelFontSize: 14
+                },
+                axisY: {
+                    valueFormatString: "#######.00",
+                    title: "Temperature [°C]",
+                    includeZero: false,
+                    titleFontSize: 20,
+                    labelAngle: 0,
+                    labelFontSize: 14
+                },
+                toolTip: {
+                    shared: true
+                },
+                data: [
+                {
+                    type: "line",
+                    color: "#0000ff",
+                    yValueFormatString: "#######.00 °C",
+                    name: "Temperature",
+                    showInLegend: true,
+                    dataPoints: @Html.Raw(ViewBag.DataPoint1),
+                }]
+            });
+            chart.render();
 
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Temperature)
-        </td>
-    </tr>
-    }
-</table>
+            var chart = new CanvasJS.Chart("chartContainer2", {
+                animationEnabled: true,
+                theme: "light2",
+                zoomEnabled: true,
+                zoomType: "xy",
+                title: {
+                    text: "Humidity",
+                    fontSize: 30,
+                },
+                axisX: {
+                    valueFormatString: "DD-MM-YYYY HH-mm-ss",
+                    title: "Date",
+                    titleFontSize: 20,
+                    //gridThickness: 2,
+                    margin: 10,
+                    labelAngle: 0,
+                    labelFontSize: 14
+                },
+                axisY: {
+                    valueFormatString: "#######.00",
+                    title: "Humidity [%]",
+                    includeZero: false,
+                    titleFontSize: 20,
+                    labelAngle: 0,
+                    labelFontSize: 14
+                },
+   
+                data: [
+                {
+                    type: "line",
+                    color: "#00ff00",
+                    yValueFormatString: "#######.00 %",
+                    name: "Humidity",
+                    showInLegend: true,
+                    dataPoints: @Html.Raw(ViewBag.DataPoint2),
+                }]
+            });
+            chart.render();
+
+            var chart = new CanvasJS.Chart("chartContainer3", {
+                animationEnabled: true,
+                theme: "light2",
+                zoomEnabled: true,
+                zoomType: "xy",
+                title: {
+                    text: "Pressure",
+                    fontSize: 30,
+                },
+                axisX: {
+                    valueFormatString: "DD-MM-YYYY HH-mm-ss",
+                    title: "Date",
+                    titleFontSize: 20,
+                    //gridThickness: 2,
+                    margin: 10,
+                    labelAngle: 0,
+                    labelFontSize: 14
+                },
+                axisY: {
+                    valueFormatString: "#######.00",
+                    title: "Pressure [hPa]",
+                    includeZero: false,
+                    titleFontSize: 20,
+                    labelAngle: 0,
+                    labelFontSize: 14
+                },
+                toolTip: {
+                    shared: true
+                },
+                data: [
+                {
+                    type: "line",
+                    color: "#ff0000",
+                    yValueFormatString: "#######.00 hPa",
+                    name: "Pressure",
+                    showInLegend: true,
+                    dataPoints: @Html.Raw(ViewBag.DataPoint3),
+                }]
+            });
+            chart.render();
+        });
+    </script>
+</head>
+<body>
+    <div style="text-align: center; font-size: 35px;">The charts below shows real-time data over last 24&nbsp; hours from sensor BMP280.</div>
+    <br />
+    <div id="chartContainer1" style="height: 600px; max-width: 1800px; margin: 0px auto"></div>
+    <br />
+    <div id="chartContainer2" style="height: 600px; max-width: 1800px; margin: 0px auto"></div>
+    <br />
+    <div id="chartContainer3" style="height: 600px; max-width: 1800px; margin: 0px auto"></div>
+    <br />
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>

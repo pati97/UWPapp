@@ -51,14 +51,33 @@ namespace WebApplication1
             return query.Result;
         }
 
-        public List<DataPoint> GetTemp()
+        public List<Weather> GetTemperature()
         {
-            IMongoCollection<DataPoint> collectionTemperature = Database.GetCollection<DataPoint>("weather");
+            IMongoCollection<Weather> collectionTemperature = Database.GetCollection<Weather>("weather");
 
-            var filter = Builders<DataPoint>.Filter.Empty;
-            var projection = Builders<DataPoint>.Projection.Include("Temperature").Include("DateTime").Exclude("_id");
-            //var projection = Builders<Weather>.Projection.Expression(x => new { x.Temperature, x.DateTime });
-            var query = collectionTemperature.Find(filter).Project<DataPoint>(projection).ToListAsync().Result;
+            var filter = Builders<Weather>.Filter.Empty;
+            var projection = Builders<Weather>.Projection.Include("Temperature").Include("DateTime").Exclude("_id");
+            var query = collectionTemperature.Find(filter).Project<Weather>(projection).SortByDescending(i => i.DateTime).Limit(300).ToListAsync().Result;
+            return query;
+        }
+
+        public List<Weather> GetHumidity()
+        {
+            IMongoCollection<Weather> collectionTemperature = Database.GetCollection<Weather>("weather");
+
+            var filter = Builders<Weather>.Filter.Empty;
+            var projection = Builders<Weather>.Projection.Include("Humidity").Include("DateTime").Exclude("_id");
+            var query = collectionTemperature.Find(filter).Project<Weather>(projection).SortByDescending(i => i.DateTime).Limit(300).ToListAsync().Result;
+            return query;
+        }
+
+        public List<Weather> GetPressure()
+        {
+            IMongoCollection<Weather> collectionTemperature = Database.GetCollection<Weather>("weather");
+
+            var filter = Builders<Weather>.Filter.Empty;
+            var projection = Builders<Weather>.Projection.Include("Pressure").Include("DateTime").Exclude("_id");
+            var query = collectionTemperature.Find(filter).Project<Weather>(projection).SortByDescending(i => i.DateTime).Limit(300).ToListAsync().Result;
             return query;
         }
     }
