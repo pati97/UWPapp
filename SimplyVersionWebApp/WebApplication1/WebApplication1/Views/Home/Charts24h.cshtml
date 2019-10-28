@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebApplication1.Models.Weather>
 
 @{
-    Layout = null;
+    ViewBag.Title = "Charts24h";
 }
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
@@ -25,10 +25,14 @@
                     valueFormatString: "DD-MM-YYYY HH-mm-ss",
                     title: "Date",
                     titleFontSize: 20,
-                    //gridThickness: 2,
+                    gridThickness: 2,
                     margin: 10,
                     labelAngle: 0,
-                    labelFontSize: 14
+                    labelFontSize: 14,
+                    crosshair: {
+                        enabled: true,
+                        snapToDataPoint: true
+                    },
                 },
                 axisY: {
                     valueFormatString: "#######.00",
@@ -36,7 +40,10 @@
                     includeZero: false,
                     titleFontSize: 20,
                     labelAngle: 0,
-                    labelFontSize: 14
+                    labelFontSize: 14,
+                    crosshair: {
+                        enabled: true
+                    },
                 },
                 toolTip: {
                     shared: true
@@ -66,25 +73,32 @@
                     valueFormatString: "DD-MM-YYYY HH-mm-ss",
                     title: "Date",
                     titleFontSize: 20,
-                    //gridThickness: 2,
+                    gridThickness: 2,
                     margin: 10,
                     labelAngle: 0,
-                    labelFontSize: 14
+                    labelFontSize: 14,
+                    crosshair: {
+                        enabled: true,
+                        snapToDataPoint: true
+                    },
                 },
                 axisY: {
-                    valueFormatString: "#######.00",
+                    valueFormatString: "##.00",
                     title: "Humidity [%]",
                     includeZero: false,
                     titleFontSize: 20,
                     labelAngle: 0,
-                    labelFontSize: 14
+                    labelFontSize: 14,
+                    crosshair: {
+                        enabled: true
+                    },
                 },
    
                 data: [
                 {
                     type: "line",
                     color: "#00ff00",
-                    yValueFormatString: "#######.00 %",
+                    yValueFormatString: "##.00 %",
                     name: "Humidity",
                     showInLegend: true,
                     dataPoints: @Html.Raw(ViewBag.DataPoint2),
@@ -105,10 +119,14 @@
                     valueFormatString: "DD-MM-YYYY HH-mm-ss",
                     title: "Date",
                     titleFontSize: 20,
-                    //gridThickness: 2,
+                    gridThickness: 2,
                     margin: 10,
                     labelAngle: 0,
-                    labelFontSize: 14
+                    labelFontSize: 14,
+                    crosshair: {
+                        enabled: true,
+                        snapToDataPoint: true
+                    },
                 },
                 axisY: {
                     valueFormatString: "#######.00",
@@ -116,7 +134,10 @@
                     includeZero: false,
                     titleFontSize: 20,
                     labelAngle: 0,
-                    labelFontSize: 14
+                    labelFontSize: 14,
+                    crosshair: {
+                        enabled: true
+                    },
                 },
                 toolTip: {
                     shared: true
@@ -138,11 +159,11 @@
 <body>
     <div style="text-align: center; font-size: 35px;">The charts below shows real-time data over last 24&nbsp; hours from sensor BMP280.</div>
     <br />
-    <div id="chartContainer1" style="height: 600px; max-width: 1800px; margin: 0px auto"></div>
+    <div id="chartContainer1" style="height: 600px; max-width: 1900px; "></div>
     <br />
-    <div id="chartContainer2" style="height: 600px; max-width: 1800px; margin: 0px auto"></div>
+    <div id="chartContainer2" style="height: 600px; max-width: 1900px; "></div>
     <br />
-    <div id="chartContainer3" style="height: 600px; max-width: 1800px; margin: 0px auto"></div>
+    <div id="chartContainer3" style="height: 600px; max-width: 1900px; "></div>
     <br />
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>

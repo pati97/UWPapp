@@ -57,7 +57,7 @@ namespace WebApplication1
 
             var filter = Builders<Weather>.Filter.Empty;
             var projection = Builders<Weather>.Projection.Include("Temperature").Include("DateTime").Exclude("_id");
-            var query = collectionTemperature.Find(filter).Project<Weather>(projection).SortByDescending(i => i.DateTime).Limit(300).ToListAsync().Result;
+            var query = collectionTemperature.Find(filter).Project<Weather>(projection).SortByDescending(i => i.DateTime).Limit(2500).ToListAsync().Result;
             return query;
         }
 
@@ -67,7 +67,7 @@ namespace WebApplication1
 
             var filter = Builders<Weather>.Filter.Empty;
             var projection = Builders<Weather>.Projection.Include("Humidity").Include("DateTime").Exclude("_id");
-            var query = collectionTemperature.Find(filter).Project<Weather>(projection).SortByDescending(i => i.DateTime).Limit(300).ToListAsync().Result;
+            var query = collectionTemperature.Find(filter).Project<Weather>(projection).SortByDescending(i => i.DateTime).Limit(2500).ToListAsync().Result;
             return query;
         }
 
@@ -77,7 +77,37 @@ namespace WebApplication1
 
             var filter = Builders<Weather>.Filter.Empty;
             var projection = Builders<Weather>.Projection.Include("Pressure").Include("DateTime").Exclude("_id");
-            var query = collectionTemperature.Find(filter).Project<Weather>(projection).SortByDescending(i => i.DateTime).Limit(300).ToListAsync().Result;
+            var query = collectionTemperature.Find(filter).Project<Weather>(projection).SortByDescending(i => i.DateTime).Limit(2500).ToListAsync().Result;
+            return query;
+        }
+
+        public List<Weather> GetTemperatureLast7Days()
+        {
+            IMongoCollection<Weather> collectionTemperature = Database.GetCollection<Weather>("weather");
+
+            var filter = Builders<Weather>.Filter.Empty;
+            var projection = Builders<Weather>.Projection.Include("Temperature").Include("DateTime").Exclude("_id");
+            var query = collectionTemperature.Find(filter).Project<Weather>(projection).SortByDescending(i => i.DateTime).Limit(40320).ToListAsync().Result;
+            return query;
+        }
+
+        public List<Weather> GetHumidityLast7Days()
+        {
+            IMongoCollection<Weather> collectionTemperature = Database.GetCollection<Weather>("weather");
+
+            var filter = Builders<Weather>.Filter.Empty;
+            var projection = Builders<Weather>.Projection.Include("Humidity").Include("DateTime").Exclude("_id");
+            var query = collectionTemperature.Find(filter).Project<Weather>(projection).SortByDescending(i => i.DateTime).Limit(40320).ToListAsync().Result;
+            return query;
+        }
+
+        public List<Weather> GetPressureLast7Days()
+        {
+            IMongoCollection<Weather> collectionTemperature = Database.GetCollection<Weather>("weather");
+
+            var filter = Builders<Weather>.Filter.Empty;
+            var projection = Builders<Weather>.Projection.Include("Pressure").Include("DateTime").Exclude("_id");
+            var query = collectionTemperature.Find(filter).Project<Weather>(projection).SortByDescending(i => i.DateTime).Limit(40320).ToListAsync().Result;
             return query;
         }
     }
