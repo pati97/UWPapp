@@ -1,0 +1,168 @@
+﻿body {
+    background-color: #e9e9e9;
+}
+
+.container {
+    height: 100%;
+}
+
+.content {
+    display: none;
+}
+
+.loader {
+    display: block;
+    z-index: 9999;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #e9e9e9;
+    opacity: 1;
+}
+
+.vertical-align {
+    min-height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.gauge {
+    list-style: none;
+    text-align: center;
+    height: 90%;
+    width: 100%;
+    margin-top: -110px;
+}
+
+    .gauge > li {
+        position: relative;
+        display: inline-block;
+        margin-right: 2px;
+    }
+
+        .gauge > li > p {
+            font-family: "Kanit", sans-serif;
+            font-size: 56px;
+            font-weight: 100;
+            display: block;
+            background-color: #f7f7f7;
+            border: 2px solid #f7f7f7;
+            background-image: -o-linear-gradient(top, #f7f7f7, #e7e7e7);
+            color: #a7a7a7;
+            margin: 30px;
+            width: 250px;
+            height: 250px;
+            line-height: 245px;
+            position: relative;
+            text-align: center;
+            border-radius: 50%;
+            box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+        }
+
+        .gauge > li:before {
+            content: "";
+            display: block;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #fff;
+            width: 100%;
+            height: 1px;
+            position: absolute;
+            top: 50%;
+            z-index: -1;
+        }
+
+        .gauge > li > p:before {
+            content: "";
+            display: block;
+            background: #fff;
+            border-top: 2px solid #ddd;
+            position: absolute;
+            top: -18px;
+            left: -18px;
+            bottom: -18px;
+            right: -18px;
+            z-index: -1;
+            border-radius: 50%;
+            box-shadow: inset 0px 8px 48px #ddd;
+        }
+
+    .gauge.switch > li > p {
+        width: 50px;
+        height: 50px;
+        margin: 20px;
+        line-height: 50px;
+        font-size: 14px;
+    }
+
+        .gauge.switch > li > p:before {
+            border: 0;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+    .gauge.switch:hover {
+        cursor: pointer;
+    }
+
+.ct-label {
+    fill: rgba(0, 0, 0, 0.4);
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.pl {
+    height: 40px;
+    display: block;
+    font-size: 30px;
+    margin: 0;
+    margin-top: -70px;
+    line-height: 30px;
+    padding: 0;
+    color: red;
+}
+
+.content-switch {
+    margin-top: 30px;
+    float: left;
+}
+
+button:hover, button:active {
+    outline: 0;
+}
+
+button.depth {
+    background: #444;
+    border: none;
+    border-radius: 80px;
+    box-shadow: inset 0 0 2px 2px rgba(0, 0, 0, 0.2), inset 0 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 2px 6px rgba(0, 0, 0, 0.2), inset 0 0 1px 8px rgba(0, 0, 0, 0.5), inset 0 -4px 2px 4px rgba(0, 0, 0, 0.5), inset 0 1px 1px 8px rgba(255, 255, 255, 0.25), inset 0 -30px 30px rgba(0, 0, 0, 0.2), 0 -4px 8px 4px rgba(0, 0, 0, 0.5), 0 10px 10px rgba(0, 0, 0, 0.25), 0 0 2px 2px rgba(0, 0, 0, 0.2), 0 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 2px 6px rgba(0, 0, 0, 0.2), 0 0 2px 8px rgba(0, 0, 0, 0.5), 0 1px 2px 8px rgba(255, 255, 255, 0.25), 0 -1px 2px 8px rgba(0, 0, 0, 0.5);
+    color: #303030;
+    cursor: pointer;
+    font: bold 40px/85px sans-serif;
+    height: 80px;
+    padding: 0;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.25), 0 -1px 1px rgba(0, 0, 0, 0.75);
+    width: 80px;
+}
+
+    button.depth:hover, button.depth:focus {
+        color: #0ab;
+        text-shadow: 0 0 20px rgba(143, 143, 239, 0.5), 0 1px 1px rgba(255, 255, 255, 0.25), 0 -1px 1px rgba(0, 0, 0, 0.75);
+    }
+
+    button.depth:active {
+        box-shadow: inset 0 0 2px 2px rgba(0, 0, 0, 0.2), inset 0 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 2px 6px rgba(0, 0, 0, 0.2), inset 0 0 1px 7px rgba(0, 0, 0, 0.5), inset 0 5px 15px 7px rgba(0, 0, 0, 0.15), inset 0 -4px 2px 3px rgba(0, 0, 0, 0.5), inset 0 1px 1px 7px rgba(255, 255, 255, 0.25), inset 0 -30px 30px rgba(0, 0, 0, 0.1), inset 0 30px 30px rgba(0, 0, 0, 0.2), 0 -4px 8px 4px rgba(0, 0, 0, 0.5), 0 5px 10px rgba(0, 0, 0, 0.25), 0 0 2px 2px rgba(0, 0, 0, 0.2), 0 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 2px 6px rgba(0, 0, 0, 0.2), 0 0 2px 8px rgba(0, 0, 0, 0.5), 0 1px 2px 8px rgba(255, 255, 255, 0.25), 0 -1px 2px 8px rgba(0, 0, 0, 0.5);
+        line-height: 43px;
+    }
+.temp{
+    color: darkblue;
+    font-size: 50px;
+    font: bold 60px;
+    font-style:normal;
+}
+/* 3D Button */

@@ -10,11 +10,13 @@
 <html>
 <head>
     <script>
-        window.onload = $(function () {
+        window.onload = $(function (result) {
 
             var chart = new CanvasJS.Chart("chartContainer1", {
                 animationEnabled: true,
                 theme: "light2",
+                panEnabled: true,
+                //exportEnabled: true,
                 zoomEnabled: true,
                 zoomType: "xy",
                 title: {
@@ -157,7 +159,8 @@
     </script>
 </head>
 <body>
-    <div style="text-align: center; font-size: 35px;">The charts below shows real-time data over last 24&nbsp; hours from sensor BMP280.</div>
+    <br />
+    <div style="text-align: center; font-size: 25px;">The charts below shows real-time data over last 24&nbsp;hours from sensor BMP280.</div>
     <br />
     <div id="chartContainer1" style="height: 600px; max-width: 1900px; "></div>
     <br />

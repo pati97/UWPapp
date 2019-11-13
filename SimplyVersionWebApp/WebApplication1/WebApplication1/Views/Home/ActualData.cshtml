@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "ActualData";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Actual Temperature, Humidity and Pressure.</title>
+
+    <meta http-equiv="refresh" content="120" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Kanit:400,100,700'>
+    <link rel='stylesheet prefetch' href='http://css-spinners.com/css/spinner/pulse.css'>
+    <link rel='stylesheet prefetch' href='http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css'>
+    <link rel='stylesheet prefetch' href='https://raw.githubusercontent.com/Globegitter/chartist-plugin-tooltip/master/dist/chartist-plugin-tooltip.css'>
+    <link rel="stylesheet" href="~/Content/style.css">
+</head>
+
+<body>
+    <input type="hidden" id="dataPoint1" data-value="@ViewBag.DataPoint1" />
+    <input type="hidden" id="dataPoint2" data-value="@ViewBag.DataPoint2" />
+    <input type="hidden" id="dataPoint3" data-value="@ViewBag.DataPoint3" />
+
+    <div class="vertical-align loader">
+        <div class="col-sm-12 text-center">
+            <div class="pulse-loader">Loading...</div>
+        </div>
+    </div>
+    <div class="container">
+        <br />
+        <div style="text-align: center; font-size: 20px;">Real-time data from sensor BMP280. Weather data are refreshed automatically every five minutes.</div>
+        <br />
+        <div style="text-align: center; font-size: 18px;">Last sensor readings:<br><b style="color:darkblue;">@ViewBag.DateTime</b></div>
+
+        <div class="row content content-temp vertical-align">
+            <div class="col-sm-12">
+                <ul class="gauge">
+                    <li class="temperature">
+                        <p> <span class="temp">12</span><span style="color:darkblue; font-size: 50px;">&deg;C</span><span class="pl">Temperature</span></p>
+                    </li>
+                    <li class="humidity">
+                        <p><span class="temp">12</span><span style="color:darkblue; font-size: 50px;">%</span><span class="pl">Humidity</span></p>
+                    </li>
+                    <li class="pressure">
+                        <p><span class="temp">12</span><span style="color:darkblue; font-size: 50px;">hPa</span><span class="pl">Pressure</span></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+    <script src='http://color-mix.it/get/v2/colormix-2.0.0.min.js'></script>
+    <script src='http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js'></script>
+
+    <script src="~/Scripts/index.js"></script>
+</body>
+
+</html>

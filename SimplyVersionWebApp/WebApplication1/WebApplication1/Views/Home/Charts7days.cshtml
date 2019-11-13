@@ -16,6 +16,8 @@
             var chart = new CanvasJS.Chart("chartContainer1", {
                 animationEnabled: true,
                 theme: "light2",
+                panEnabled: true,
+                exportEnabled: true,
                 zoomEnabled: true,
                 zoomType: "xy",
                 title: {
@@ -60,10 +62,12 @@
                 }]
             });
             chart.render();
-
+            
             var chart = new CanvasJS.Chart("chartContainer2", {
                 animationEnabled: true,
                 theme: "light2",
+                panEnabled: true,
+                exportEnabled: true,
                 zoomEnabled: true,
                 zoomType: "xy",
                 title: {
@@ -110,6 +114,8 @@
             var chart = new CanvasJS.Chart("chartContainer3", {
                 animationEnabled: true,
                 theme: "light2",
+                panEnabled: true,
+                exportEnabled: true,
                 zoomEnabled: true,
                 zoomType: "xy",
                 title: {
@@ -158,7 +164,8 @@
     </script>
 </head>
 <body>
-    <div style="text-align: center; font-size: 25px;">The charts below shows real-time data over last 7&nbsp; days from sensor BMP280.</div>
+    <br />
+    <div style="text-align: center; font-size: 30px;">The charts below shows real-time data over last 7&nbsp;days from sensor BMP280.</div>
     <br />
     <div id="chartContainer1" style="height: 600px; max-width: 1900px; margin: 0px auto;"></div>
     <br />

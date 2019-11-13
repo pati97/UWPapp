@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "MinMax";
+}
+
+@*<h2>Minimal and maximal weather date over last 24h.</h2>*@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        thead th {
+            text-align: center;
+            background: lightgrey;
+            color: black;
+            font-size: 18px;
+            border: 1px solid black;
+            width: 200px;
+            height: 50px;
+        }
+        tbody td {
+            text-align: center;
+            background-color: mintcream;
+            color: darkblue;
+            font-size: 20px;
+            border: 1px solid black;
+            font-size: 30px;
+        }
+        tbody th {
+            text-align: center;
+            background: lightgrey;
+            color: black;
+            font-size: 18px;
+            border: 1px solid black;
+            width: 100px;
+            height: 120px;
+        }
+        table.center {
+            text-align: center;
+            width: 70%;
+            height: 200%;
+            margin-left: 15%;
+            margin-right: 15%;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body style="background-color: #e9e9e9;">
+    <br />
+    <div style="text-align: center; font-size: 30px;">Minimal and maximal weather date over last 24h.</div>
+    <br />
+    <table class="center">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Temperature</th>
+                <th>Humidity</th>
+                <th>Pressure</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Minimum value</th>
+                <td>@ViewBag.TempMin <span style="color:darkblue; font-size: 30px;">&deg;C</span><br><b style="color:darkblue; font-size:14px;">@ViewBag.TempMinDate</b><br /></td>
+                <td>@ViewBag.HumMin <span style="color:darkblue; font-size: 30px;">%</span><br><b style="color:darkblue; font-size:14px;">@ViewBag.HumMinDate</b><br /></td>
+                <td>@ViewBag.PressureMin <span style="color:darkblue; font-size: 30px;">hPa</span><br><b style="color:darkblue; font-size:14px;">@ViewBag.PressureMinDate</b><br /></td>
+            </tr>
+            <tr>
+                <th>Maximum value</th>
+                <td>@ViewBag.TempMax <span style="color:darkblue; font-size: 30px;">&deg;C</span><br><b style="color:darkblue; font-size:14px;">@ViewBag.TempMaxDate</b><br /></td>
+                <td>@ViewBag.HumMax <span style="color:darkblue; font-size: 30px;">%</span><br><b style="color:darkblue; font-size:14px;">@ViewBag.HumMaxDate</b><br /></td>
+                <td>@ViewBag.PressureMax <span style="color:darkblue; font-size: 30px;">hPa</span><br><b style="color:darkblue; font-size:14px;">@ViewBag.PressureMaxDate</b><br /></td>
+            </tr>
+            @*<tr>
+                    <th>Row Header:</th>
+                    <td>A</td>
+                    <td>java2s.com long data</td>
+                    <td>C</td>
+                </tr>*@
+        </tbody>
+    </table>
+</body>
+</html>
+

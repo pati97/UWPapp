@@ -14,13 +14,8 @@ namespace WebApplication1.Controllers
 
         public ActionResult Charts24h()
         {
-            List<Weather> getTemp = new List<Weather>();
-            List<Weather> getHumidity = new List<Weather>();
-            List<Weather> getPressure = new List<Weather>();
-            getTemp = _db.GetTemperature();
-            getHumidity = _db.GetHumidity();
-            getPressure = _db.GetPressure();
-
+            List<Weather> getParams24h = new List<Weather>();
+            getParams24h = _db.GetParameters24h();
             List<DataPoint> temperature = new List<DataPoint>();
             List<DataPoint> humidity = new List<DataPoint>();
             List<DataPoint> pressure = new List<DataPoint>();
@@ -29,18 +24,17 @@ namespace WebApplication1.Controllers
             double averangeValue = 0;
             int SizeOfMeasurement = 20;
             
-            foreach (var item in getTemp)
+            foreach (var item in getParams24h)
             {
-                if (counter < 40)
+                if (counter < SizeOfMeasurement)
                 {
                     var temp = item.Temperature;
                     averangeValue += temp; 
                 }
-                if (counter == 40)
+                if (counter == SizeOfMeasurement)
                 {
-                    double tempValue = averangeValue / 40;
-                    DateTime date;
-                    DateTime.TryParse(item.DateTime, out date);
+                    double tempValue = averangeValue / SizeOfMeasurement;
+                    DateTime.TryParse(item.DateTime, out DateTime date);
                     var dataPoint = new DataPoint(date, tempValue);
                     temperature.Add(dataPoint);
                     counter = 0;
@@ -50,18 +44,17 @@ namespace WebApplication1.Controllers
             }
             averangeValue = 0;
             counter = 0;
-            foreach (var item in getHumidity)
+            foreach (var item in getParams24h)
             {
-                if (counter < 20)
+                if (counter < SizeOfMeasurement)
                 {
                     var hum = item.Humidity;
                     averangeValue += hum; 
                 }
-                if(counter == 20)
+                if(counter == SizeOfMeasurement)
                 {
-                    double humValue = averangeValue / 20;
-                    DateTime date;
-                    DateTime.TryParse(item.DateTime, out date);
+                    double humValue = averangeValue / SizeOfMeasurement;
+                    DateTime.TryParse(item.DateTime, out DateTime date);
                     var dataPoint = new DataPoint(date, humValue);
                     humidity.Add(dataPoint);
                     counter = 0;
@@ -71,18 +64,17 @@ namespace WebApplication1.Controllers
             }
             averangeValue = 0;
             counter = 0;
-            foreach (var item in getPressure)
+            foreach (var item in getParams24h)
             {
-                if(counter < 20)
+                if(counter < SizeOfMeasurement)
                 {
                     var press = item.Pressure;
                     averangeValue += press;
                 }
-                if (counter == 20)
+                if (counter == SizeOfMeasurement)
                 {
-                    double pressValue = item.Pressure;
-                    DateTime date;
-                    DateTime.TryParse(item.DateTime, out date);
+                    double pressValue = averangeValue / SizeOfMeasurement;
+                    DateTime.TryParse(item.DateTime, out DateTime date);
                     var dataPoint = new DataPoint(date, pressValue);
                     pressure.Add(dataPoint);
                     counter = 0;
@@ -107,13 +99,9 @@ namespace WebApplication1.Controllers
 
         public ActionResult Charts7days()
         {
-            List<Weather> getTemp7days = new List<Weather>();
-            List<Weather> getHumidity7days = new List<Weather>();
-            List<Weather> getPressure7days = new List<Weather>();
-            getTemp7days = _db.GetTemperatureLast7Days();
-            getHumidity7days = _db.GetHumidityLast7Days();
-            getPressure7days = _db.GetPressureLast7Days();
-
+            List<Weather> getParamsLast7days = new List<Weather>();
+            getParamsLast7days = _db.GetParametersLast7Days();
+    
             List<DataPoint> temperature = new List<DataPoint>();
             List<DataPoint> humidity = new List<DataPoint>();
             List<DataPoint> pressure = new List<DataPoint>();
@@ -122,7 +110,7 @@ namespace WebApplication1.Controllers
             double averangeValue = 0;
             int SizeOfMeasurement = 720;
 
-            foreach (var item in getTemp7days)
+            foreach (var item in getParamsLast7days)
             {
                 if (counter < SizeOfMeasurement)
                 {
@@ -132,8 +120,7 @@ namespace WebApplication1.Controllers
                 if (counter == SizeOfMeasurement)
                 {
                     double tempValue = averangeValue / SizeOfMeasurement;
-                    DateTime date;
-                    DateTime.TryParse(item.DateTime, out date);
+                    DateTime.TryParse(item.DateTime, out DateTime date);
                     var dataPoint = new DataPoint(date, tempValue);
                     temperature.Add(dataPoint);
                     counter = 0;
@@ -143,7 +130,7 @@ namespace WebApplication1.Controllers
             }
             averangeValue = 0;
             counter = 0;
-            foreach (var item in getHumidity7days)
+            foreach (var item in getParamsLast7days)
             {
                 if (counter < SizeOfMeasurement)
                 {
@@ -153,8 +140,7 @@ namespace WebApplication1.Controllers
                 if (counter == SizeOfMeasurement)
                 {
                     double humValue = averangeValue / SizeOfMeasurement;
-                    DateTime date;
-                    DateTime.TryParse(item.DateTime, out date);
+                    DateTime.TryParse(item.DateTime, out DateTime date);
                     var dataPoint = new DataPoint(date, humValue);
                     humidity.Add(dataPoint);
                     counter = 0;
@@ -164,7 +150,8 @@ namespace WebApplication1.Controllers
             }
             averangeValue = 0;
             counter = 0;
-            foreach (var item in getPressure7days)
+
+            foreach (var item in getParamsLast7days)
             {
                 if (counter < SizeOfMeasurement)
                 {
@@ -173,9 +160,8 @@ namespace WebApplication1.Controllers
                 }
                 if (counter == SizeOfMeasurement)
                 {
-                    double pressValue = item.Pressure;
-                    DateTime date;
-                    DateTime.TryParse(item.DateTime, out date);
+                    double pressValue = averangeValue / SizeOfMeasurement;
+                    DateTime.TryParse(item.DateTime, out DateTime date);
                     var dataPoint = new DataPoint(date, pressValue);
                     pressure.Add(dataPoint);
                     counter = 0;
@@ -198,6 +184,54 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public ActionResult ActualData()
+        {
+            Weather getParamsLastDate;
+            getParamsLastDate = _db.GetLastWeather();
+
+            var temp = getParamsLastDate.Temperature;
+            var hum = getParamsLastDate.Humidity;
+            var press = getParamsLastDate.Pressure;
+            DateTime.TryParse(getParamsLastDate.DateTime, out DateTime date);
+
+            temp = Math.Round(temp, 2);
+            hum = (float)Math.Round(hum, 2);
+            press = (float)Math.Round(press, 2);
+
+            ViewBag.DataPoint1 = JsonConvert.SerializeObject(temp);
+            ViewBag.DataPoint2 = JsonConvert.SerializeObject(hum);
+            ViewBag.DataPoint3 = JsonConvert.SerializeObject(press);
+            ViewBag.DateTime = JsonConvert.SerializeObject(date, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss"});
+            return View();
+        }
+
+        public ActionResult MinMax()
+        {
+            var minTemperature = _db.GetMinTemperatureLast24h();
+            var maxTemperature = _db.GetMaxTemperatureLast24h();
+            var minHumidity = _db.GetMinHumidityLast24h();
+            var maxHumidity = _db.GetMaxHumidityLast24h();
+            var minPressure = _db.GetMinPressureLast24h();
+            var maxPressure = _db.GetMaxPressureLast24h();
+            //minTemperature = Math.Round(minTemperature, 3);
+
+            ViewBag.TempMin = JsonConvert.SerializeObject(Math.Round(minTemperature.Temperature,2));
+            ViewBag.TempMinDate = JsonConvert.SerializeObject(minTemperature.DateTime, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            ViewBag.TempMax = JsonConvert.SerializeObject(Math.Round(maxTemperature.Temperature,2));
+            ViewBag.TempMaxDate = JsonConvert.SerializeObject(maxTemperature.DateTime, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+
+            ViewBag.HumMin = JsonConvert.SerializeObject(Math.Round(minHumidity.Humidity,2));
+            ViewBag.HumMinDate = JsonConvert.SerializeObject(minHumidity.DateTime, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            ViewBag.HumMax = JsonConvert.SerializeObject(Math.Round(maxHumidity.Humidity,2));
+            ViewBag.HumMaxDate = JsonConvert.SerializeObject(maxHumidity.DateTime, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+
+            ViewBag.PressureMin = JsonConvert.SerializeObject(Math.Round(minPressure.Pressure,2));
+            ViewBag.PressureMinDate = JsonConvert.SerializeObject(minPressure.DateTime, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            ViewBag.PressureMax = JsonConvert.SerializeObject(Math.Round(maxPressure.Pressure,2));
+            ViewBag.PressureMaxDate = JsonConvert.SerializeObject(maxPressure.DateTime, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+
+            return View();
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

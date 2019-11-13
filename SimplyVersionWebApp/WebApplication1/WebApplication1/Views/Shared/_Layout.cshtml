@@ -16,14 +16,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Real-time weather", "Charts24h", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Real-time weather", "ActualData", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Charts last 24 hours", "Charts24h", "Home")</li>
                     <li>@Html.ActionLink("Charts last 7 days", "Charts7days", "Home")</li>
-                    <li>@Html.ActionLink("Weather data", "Index", "Weather")</li>
-                    <li>@Html.ActionLink("List", "List", "Weather")</li>
+                    <li>@Html.ActionLink("MinMax", "MinMax", "Home")</li>
                 </ul>
             </div>
         </div>
