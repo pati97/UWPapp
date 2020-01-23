@@ -11,8 +11,8 @@ namespace WebApplication1.Models
     public class Weather
     {
         [JsonProperty(PropertyName = "_id")]
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        //[BsonId]
+        //[BsonRepresentation(BsonType.ObjectId)]
         public ObjectId Id { get; set; }
 
         [JsonProperty(PropertyName = "DeviceId")]

@@ -23,13 +23,14 @@ namespace WebApplication1.Controllers
             int counter = 0;
             double averangeValue = 0;
             int SizeOfMeasurement = 20;
-            
+
             foreach (var item in getParams24h)
             {
                 if (counter < SizeOfMeasurement)
                 {
                     var temp = item.Temperature;
-                    averangeValue += temp; 
+                    averangeValue += temp;
+                    counter++;
                 }
                 if (counter == SizeOfMeasurement)
                 {
@@ -40,7 +41,7 @@ namespace WebApplication1.Controllers
                     counter = 0;
                     averangeValue = 0;
                 }
-                counter++;
+
             }
             averangeValue = 0;
             counter = 0;
@@ -49,9 +50,10 @@ namespace WebApplication1.Controllers
                 if (counter < SizeOfMeasurement)
                 {
                     var hum = item.Humidity;
-                    averangeValue += hum; 
+                    averangeValue += hum;
+                    counter++;
                 }
-                if(counter == SizeOfMeasurement)
+                if (counter == SizeOfMeasurement)
                 {
                     double humValue = averangeValue / SizeOfMeasurement;
                     DateTime.TryParse(item.DateTime, out DateTime date);
@@ -60,16 +62,16 @@ namespace WebApplication1.Controllers
                     counter = 0;
                     averangeValue = 0;
                 }
-                counter++;
             }
             averangeValue = 0;
             counter = 0;
             foreach (var item in getParams24h)
             {
-                if(counter < SizeOfMeasurement)
+                if (counter < SizeOfMeasurement)
                 {
                     var press = item.Pressure;
                     averangeValue += press;
+                    counter++;
                 }
                 if (counter == SizeOfMeasurement)
                 {
@@ -80,7 +82,6 @@ namespace WebApplication1.Controllers
                     counter = 0;
                     averangeValue = 0;
                 }
-                counter++;
             }
 
             temperature.Reverse();
@@ -90,9 +91,9 @@ namespace WebApplication1.Controllers
             var jsonSettings = new JsonSerializerSettings();
             jsonSettings.DateFormatString = "dd/MM/yyyy hh:mm:ss";
 
-            ViewBag.DataPoint1 = JsonConvert.SerializeObject(temperature, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
-            ViewBag.DataPoint2 = JsonConvert.SerializeObject(humidity, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
-            ViewBag.DataPoint3 = JsonConvert.SerializeObject(pressure, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            ViewBag.Temperature24 = JsonConvert.SerializeObject(temperature, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            ViewBag.Humidity24 = JsonConvert.SerializeObject(humidity, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            ViewBag.Pressure24 = JsonConvert.SerializeObject(pressure, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
 
             return View();
         }
@@ -108,7 +109,7 @@ namespace WebApplication1.Controllers
 
             int counter = 0;
             double averangeValue = 0;
-            int SizeOfMeasurement = 720;
+            int SizeOfMeasurement = 600;
 
             foreach (var item in getParamsLast7days)
             {
@@ -116,6 +117,7 @@ namespace WebApplication1.Controllers
                 {
                     var temp = item.Temperature;
                     averangeValue += temp;
+                    counter++;
                 }
                 if (counter == SizeOfMeasurement)
                 {
@@ -126,7 +128,7 @@ namespace WebApplication1.Controllers
                     counter = 0;
                     averangeValue = 0;
                 }
-                counter++;
+                
             }
             averangeValue = 0;
             counter = 0;
@@ -136,6 +138,7 @@ namespace WebApplication1.Controllers
                 {
                     var hum = item.Humidity;
                     averangeValue += hum;
+                    counter++;
                 }
                 if (counter == SizeOfMeasurement)
                 {
@@ -146,7 +149,7 @@ namespace WebApplication1.Controllers
                     counter = 0;
                     averangeValue = 0;
                 }
-                counter++;
+                
             }
             averangeValue = 0;
             counter = 0;
@@ -157,6 +160,7 @@ namespace WebApplication1.Controllers
                 {
                     var press = item.Pressure;
                     averangeValue += press;
+                    counter++;
                 }
                 if (counter == SizeOfMeasurement)
                 {
@@ -167,7 +171,7 @@ namespace WebApplication1.Controllers
                     counter = 0;
                     averangeValue = 0;
                 }
-                counter++;
+                
             }
 
             temperature.Reverse();
@@ -177,9 +181,9 @@ namespace WebApplication1.Controllers
             var jsonSettings = new JsonSerializerSettings();
             jsonSettings.DateFormatString = "dd/MM/yyyy hh:mm:ss";
 
-            ViewBag.DataPoint1 = JsonConvert.SerializeObject(temperature, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
-            ViewBag.DataPoint2 = JsonConvert.SerializeObject(humidity, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
-            ViewBag.DataPoint3 = JsonConvert.SerializeObject(pressure, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            ViewBag.Temperature7 = JsonConvert.SerializeObject(temperature, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            ViewBag.Humidity7 = JsonConvert.SerializeObject(humidity, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            ViewBag.Pressure7 = JsonConvert.SerializeObject(pressure, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
 
             return View();
         }
@@ -213,7 +217,6 @@ namespace WebApplication1.Controllers
             var maxHumidity = _db.GetMaxHumidityLast24h();
             var minPressure = _db.GetMinPressureLast24h();
             var maxPressure = _db.GetMaxPressureLast24h();
-            //minTemperature = Math.Round(minTemperature, 3);
 
             ViewBag.TempMin = JsonConvert.SerializeObject(Math.Round(minTemperature.Temperature,2));
             ViewBag.TempMinDate = JsonConvert.SerializeObject(minTemperature.DateTime, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
@@ -246,4 +249,5 @@ namespace WebApplication1.Controllers
             return View();
         }
     }
+
 }

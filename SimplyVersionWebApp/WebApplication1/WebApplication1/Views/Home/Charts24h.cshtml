@@ -16,7 +16,7 @@
                 animationEnabled: true,
                 theme: "light2",
                 panEnabled: true,
-                //exportEnabled: true,
+                exportEnabled: true,
                 zoomEnabled: true,
                 zoomType: "xy",
                 title: {
@@ -37,7 +37,7 @@
                     },
                 },
                 axisY: {
-                    valueFormatString: "#######.00",
+                    valueFormatString: "#######.#######0",
                     title: "Temperature [°C]",
                     includeZero: false,
                     titleFontSize: 20,
@@ -54,10 +54,10 @@
                 {
                     type: "line",
                     color: "#0000ff",
-                    yValueFormatString: "#######.00 °C",
+                    yValueFormatString: "#######.######## °C",
                     name: "Temperature",
                     showInLegend: true,
-                    dataPoints: @Html.Raw(ViewBag.DataPoint1),
+                    dataPoints: @Html.Raw(ViewBag.Temperature24),
                 }]
             });
             chart.render();
@@ -65,6 +65,8 @@
             var chart = new CanvasJS.Chart("chartContainer2", {
                 animationEnabled: true,
                 theme: "light2",
+                panEnabled: true,
+                exportEnabled: true,
                 zoomEnabled: true,
                 zoomType: "xy",
                 title: {
@@ -85,7 +87,7 @@
                     },
                 },
                 axisY: {
-                    valueFormatString: "##.00",
+                    valueFormatString: "##.#######0",
                     title: "Humidity [%]",
                     includeZero: false,
                     titleFontSize: 20,
@@ -100,10 +102,10 @@
                 {
                     type: "line",
                     color: "#00ff00",
-                    yValueFormatString: "##.00 %",
+                    yValueFormatString: "##.######## %",
                     name: "Humidity",
                     showInLegend: true,
-                    dataPoints: @Html.Raw(ViewBag.DataPoint2),
+                    dataPoints: @Html.Raw(ViewBag.Humidity24),
                 }]
             });
             chart.render();
@@ -111,6 +113,8 @@
             var chart = new CanvasJS.Chart("chartContainer3", {
                 animationEnabled: true,
                 theme: "light2",
+                panEnabled: true,
+                exportEnabled: true,
                 zoomEnabled: true,
                 zoomType: "xy",
                 title: {
@@ -131,7 +135,7 @@
                     },
                 },
                 axisY: {
-                    valueFormatString: "#######.00",
+                    valueFormatString: "#######.#######0",
                     title: "Pressure [hPa]",
                     includeZero: false,
                     titleFontSize: 20,
@@ -148,10 +152,10 @@
                 {
                     type: "line",
                     color: "#ff0000",
-                    yValueFormatString: "#######.00 hPa",
+                    yValueFormatString: "#######.######## hPa",
                     name: "Pressure",
                     showInLegend: true,
-                    dataPoints: @Html.Raw(ViewBag.DataPoint3),
+                    dataPoints: @Html.Raw(ViewBag.Pressure24),
                 }]
             });
             chart.render();
@@ -160,7 +164,7 @@
 </head>
 <body>
     <br />
-    <div style="text-align: center; font-size: 25px;">The charts below shows real-time data over last 24&nbsp;hours from sensor BMP280.</div>
+    <div style="text-align: center; font-size: 25px;">The charts below shows real-time data over last 24&nbsp;hours from sensor BME280.</div>
     <br />
     <div id="chartContainer1" style="height: 600px; max-width: 1900px; "></div>
     <br />

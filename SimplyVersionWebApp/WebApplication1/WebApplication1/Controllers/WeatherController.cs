@@ -14,9 +14,6 @@ namespace WebApplication1.Controllers
     public class WeatherController : Controller
     {
         MongoDbContext _dbContext = new MongoDbContext();
-
-
-
         // GET: Weather
         public async Task<ActionResult> Index(int? page)
         {

@@ -38,7 +38,7 @@
                     },
                 },
                 axisY: {
-                    valueFormatString: "#######.00",
+                    valueFormatString: "#######.######0",
                     title: "Temperature [°C]",
                     includeZero: false,
                     titleFontSize: 20,
@@ -55,10 +55,10 @@
                 {
                     type: "line",
                     color: "#0000ff",
-                    yValueFormatString: "#######.00 °C",
+                    yValueFormatString: "#######.######0 °C",
                     name: "Temperature",
                     showInLegend: true,
-                    dataPoints: @Html.Raw(ViewBag.DataPoint1),
+                    dataPoints: @Html.Raw(ViewBag.Temperature7),
                 }]
             });
             chart.render();
@@ -88,7 +88,7 @@
                     },
                 },
                 axisY: {
-                    valueFormatString: "##.00",
+                    valueFormatString: "##.####0",
                     title: "Humidity [%]",
                     includeZero: false,
                     titleFontSize: 20,
@@ -103,10 +103,10 @@
                 {
                     type: "line",
                     color: "#00ff00",
-                    yValueFormatString: "##.00 %",
+                    yValueFormatString: "##.####0 %",
                     name: "Humidity",
                     showInLegend: true,
-                    dataPoints: @Html.Raw(ViewBag.DataPoint2),
+                    dataPoints: @Html.Raw(ViewBag.Humidity7),
                 }]
             });
             chart.render();
@@ -136,7 +136,7 @@
                     },
                 },
                 axisY: {
-                    valueFormatString: "#######.00",
+                    valueFormatString: "#######.#####0",
                     title: "Pressure [hPa]",
                     includeZero: false,
                     titleFontSize: 20,
@@ -153,10 +153,10 @@
                 {
                     type: "line",
                     color: "#ff0000",
-                    yValueFormatString: "#######.00 hPa",
+                    yValueFormatString: "#######.#####0 hPa",
                     name: "Pressure",
                     showInLegend: true,
-                    dataPoints: @Html.Raw(ViewBag.DataPoint3),
+                    dataPoints: @Html.Raw(ViewBag.Pressure7),
                 }]
             });
             chart.render();
@@ -165,7 +165,7 @@
 </head>
 <body>
     <br />
-    <div style="text-align: center; font-size: 30px;">The charts below shows real-time data over last 7&nbsp;days from sensor BMP280.</div>
+    <div style="text-align: center; font-size: 30px;">The charts below shows real-time data over last 7&nbsp;days from sensor BME280.</div>
     <br />
     <div id="chartContainer1" style="height: 600px; max-width: 1900px; margin: 0px auto;"></div>
     <br />
